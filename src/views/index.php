@@ -1,13 +1,3 @@
-<?php
-require_once 'config.php';
-
-// Fetching all recipes from database - assuming the database is okay
-$connection = new PDO("mysql:host=" . SERVER . ";dbname=" . DATABASE . ";charset=utf8", USER, PASSWORD);
-$statement = $connection->query('SELECT id, title FROM recipe');
-$recipes = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-// Generate the web page
-?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -26,5 +16,7 @@ $recipes = $statement->fetchAll(PDO::FETCH_ASSOC);
             </li>
             <?php endforeach ?>
         </ul>
+
+        <a href="/ajouter-recette">Add a recipe</a>
     </body>
 </html>

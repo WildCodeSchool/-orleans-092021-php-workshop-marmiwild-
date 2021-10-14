@@ -10,7 +10,7 @@
         <ul>
             <?php foreach ($recipes as $recipe) : ?>
             <li>
-                <a href="show.php?id=<?= $recipe['id'] ?>">
+                <a href="/detail-recette?id=<?= $recipe['id'] ?>">
                     <?= $recipe['title'] ?>
                 </a>
             </li>

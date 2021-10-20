@@ -1,20 +1,35 @@
 <?php
 
-require_once __DIR__ . '/../models/RecipeModel.php';
+namespace App\Controllers;
+
+use App\Models\RecipeModel;
 
 class RecipeController
 {
-    public function browse(): void
+    private $twig;
+
+    public function __construct()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader('../src/views');
+        $this->twig = new \Twig\Environment(
+            $loader,
+            [
+                'cache' => false,
+            ]
+        );
+    }
+
+    public function browse(): string
     {
         // Fetching all recipes
         $recipeModel = new RecipeModel();
         $recipes = $recipeModel->getAll();
 
         // Generate the web page
-        require __DIR__ . '/../views/index.php';
+        return $this->twig->render('recipes/index.html.twig', ['recipes' => $recipes]);
     }
 
-    public function show(int $id): void
+    public function show(int $id): string
     {
         // Input parameter validation (integer >0)
         $id = filter_var($id, FILTER_VALIDATE_INT, ["options" => ["min_range" => 1]]);
@@ -34,7 +49,7 @@ class RecipeController
         }
 
         // Generate the web page
-        require __DIR__ . '/../views/show.php';
+        return $this->twig->render('recipes/show.html.twig', ['recipe' => $recipe]);
     }
 
     public function add(): void
@@ -59,7 +74,7 @@ class RecipeController
         $editionMode = 'Add';
         require __DIR__ . '/../views/form.php';
     }
-    
+
     public function edit(int $id): void
     {
         $errors = [];
@@ -99,7 +114,7 @@ class RecipeController
         return $errors ?? [];
     }
 
-    public function delete(int $id) 
+    public function delete(int $id)
     {
         if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             $recipeModel = new RecipeModel();

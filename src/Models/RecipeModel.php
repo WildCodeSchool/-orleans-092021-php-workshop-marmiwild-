@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Models;
+
+use PDO;
+
 class RecipeModel
 {
-
-    private PDO $connection; 
+    private PDO $connection;
 
     public function __construct()
     {
@@ -31,16 +34,16 @@ class RecipeModel
     }
 
     public function save(array $recipe): void
-    {   
+    {
         $query = 'INSERT INTO recipe(title, description) VALUES (:title, :description)';
         $statement = $this->connection->prepare($query);
         $statement->bindValue(':title', $recipe['title'], PDO::PARAM_STR);
         $statement->bindValue(':description', $recipe['description'], PDO::PARAM_STR);
         $statement->execute();
-    }   
-    
+    }
+
     public function update(array $recipe): void
-    {   
+    {
         $query = 'UPDATE recipe SET title=:title, description=:description WHERE id=:id';
         $statement = $this->connection->prepare($query);
         $statement->bindValue(':title', $recipe['title'], PDO::PARAM_STR);
@@ -50,7 +53,7 @@ class RecipeModel
     }
 
     public function remove(int $id): void
-    {   
+    {
         $query = 'DELETE FROM recipe WHERE id=:id';
         $statement = $this->connection->prepare($query);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);

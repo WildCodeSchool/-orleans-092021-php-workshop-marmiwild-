@@ -12,5 +12,10 @@
         <div>
             <?= $recipe['description'] ?>
         </div>
+
+        <a href="/edit?id=<?= $recipe['id'] ?>">Edit</a>
+        <form action="/delete?id=<?= $recipe['id'] ?>" method="POST">
+            <button>Delete</button>
+        </form>
     </body>
 </html>

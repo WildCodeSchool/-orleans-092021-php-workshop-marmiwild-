@@ -3,11 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Add Your Recipe</title>
+        <title><?= $editionMode ?> Your Recipe</title>
     </head>
     <body>
         <a href="/">Home</a>
-        <h1>Add Your Recipe</h1>
+        <h1><?= $editionMode ?>  Your Recipe</h1>
 
         <?php foreach ($errors as $error) : ?>
             <p><?= $error ?></p>
